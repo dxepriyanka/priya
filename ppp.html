@@ -1,0 +1,232 @@
+
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  :root {
+  --background: rgb(14, 11, 68);
+  --yellow: rgb(253, 224, 71);
+  --white: white;
+  --overlay-color: rgba(13, 12, 32, 0.789);
+}
+
+body {
+  background-color: var(--background);
+  color: var(--yellow);
+  padding: 0px;
+  margin: 0px;
+  font-family: sans-serif;
+  box-sizing: border-box;
+  max-width: 100vw;
+}
+
+.container {
+  box-sizing: border-box;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 12px;
+  margin: 0 auto;
+  max-width: fit-content;
+  padding: 20px;
+}
+
+.date-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  box-sizing: border-box;
+  width: 9rem;
+  height: 9rem;
+  max-width: 30vw;
+  aspect-ratio: 1/1;
+  padding: 10px;
+  cursor: pointer;
+  background: var(--background);
+  border: 2px solid var(--yellow);
+  border-radius: 2%;
+  font-weight: bolder;
+  place-self: center;
+  transition: all 200ms cubic-bezier(0, 0, 0.2, 1);
+  z-index: 5;
+}
+
+.date-card > p:first-child {
+  color: var(--white);
+  font-size: 2.5rem;
+  margin-bottom: 0px;
+}
+
+.date-card > p {
+  text-align: center;
+  /* line-height: 30px; */
+}
+
+.date-card:hover {
+  transform: scale(1.2);
+  background: var(--yellow);
+  color: var(--background);
+  z-index: 6;
+}
+
+.date-card:hover > p {
+  color: var(--background);
+}
+
+.modal {
+  position: fixed;
+  display: grid;
+  place-items: center;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  border: 1.2px solid var(--yellow);
+  outline: 1.2px solid var(--yellow);
+  outline-offset: 3px;
+  z-index: 10;
+  background: var(--background);
+  width: 30rem;
+  height: 15rem;
+  max-width: 90%;
+  max-height: 90%;
+  transition: 200ms ease-out;
+}
+
+.modal-active {
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.modal > p {
+  color: var(--white);
+  font-size: larger;
+}
+
+.close-button {
+  position: absolute;
+  right: 5px;
+  top: 5px;
+  background: transparent;
+  color: var(--yellow);
+  border: 1.2px solid var(--yellow);
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+#particles-js {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  z-index: 3;
+  pointer-events: none;
+}
+
+.overlay {
+  position: fixed;
+  opacity: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: var(--overlay-color);
+  pointer-events: none;
+  transition: 200ms ease-out;
+  z-index: 9;
+}
+
+.overlay-active {
+  opacity: 1;
+  pointer-events: all;
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+@media screen and (min-width: 500px) {
+  .container {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media screen and (max-width: 650px) {
+  :root {
+    font-size: 11px;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  :root {
+    font-size: 18px;
+  }
+
+  .container {
+    grid-template-columns: repeat(5, 1fr);
+  }
+}
+
+</style>
+</head>
+<body>
+
+<h2></h2>
+<div class="square"></div>
+<div class="grid" id = "grid"></div>
+<div class="container" id = "container"></div>
+
+  <div class="modal" id= "modal">
+
+    <button  class="close-button" id='close-button' >&times;</button>
+
+    <p id="modal-message"></p>
+
+  </div>
+<!-- <font color="white">
+<p id="square"><font size="+4"> 01</font></br> &nbsp JAN</p>
+<p id="square"><font size="+4"> 02</font></br> &nbsp JAN</p>
+<p id="square"><font size="+4"> 03</font></br> &nbsp JAN</p>
+<p id="square"><font size="+4"> 04</font></br> &nbsp JAN</p>
+<p id="square"><font size="+4"> 05</font></br> &nbsp JAN</p>
+<p id="square"><font size="+4"> 06</font></br> &nbsp JAN</p>
+<p id="square"><font size="+4"> 07</font></br> &nbsp JAN</p>
+<p id="square"><font size="+4"> 08</font></br> &nbsp JAN</p>
+<p id="square"><font size="+4"> 09</font></br> &nbsp JAN</p>
+<p id="square"><font size="+4"> 10</font></br> &nbsp JAN</p>
+<p id="square"><font size="+4"> 11</font></br> &nbsp JAN</p>
+<p id="square"><font size="+4"> 12</font></br> &nbsp JAN</p>
+<p id="square"><font size="+4"> 13</font></br> &nbsp JAN</p>
+<p id="square"><font size="+4"> 14</font></br> &nbsp JAN</p>
+<p id="square"><font size="+4"> 15</font></br> &nbsp JAN</p>
+<p id="square"><font size="+4"> 16</font></br> &nbsp JAN</p>
+<p id="square"><font size="+4"> 17</font></br> &nbsp JAN</p>
+<p id="square"><font size="+4"> 18</font></br> &nbsp JAN</p>
+<p id="square"><font size="+4"> 19</font></br> &nbsp JAN</p>
+<p id="square"><font size="+4"> 20</font></br> &nbsp JAN</p>
+<p id="square"><font size="+4"> 21</font></br> &nbsp JAN</p>
+<p id="square"><font size="+4"> 22</font></br> &nbsp JAN</p>
+<p id="square"><font size="+4"> 23</font></br> &nbsp JAN</p>
+<p id="square"><font size="+4"> 24</font></br> &nbsp JAN</p>
+<p id="square"><font size="+4"> 25</font></br> &nbsp JAN</p>
+<p id="square"><font size="+4"> 26</font></br> &nbsp JAN</p>
+<p id="square"><font size="+4"> 27</font></br> &nbsp JAN</p>
+<p id="square"><font size="+4"> 28</font></br> &nbsp JAN</p>
+<p id="square"><font size="+4"> 29</font></br> &nbsp JAN</p>
+<p id="square"><font size="+4"> 30</font></br> &nbsp JAN</p>
+<p id="square"><font size="+4"> 31</font></br> &nbsp JAN</p>
+
+
+
+</font> -->
+<div id='particles-js'></div>
+<script type="text/javascript" src="particles.js"></script> 
+ <script type="text/javascript" src="app.js"></script>
+ <script type="text/javascript" src="api.js"></script>
+
+
+
+</body>
+</html> 
+
+
